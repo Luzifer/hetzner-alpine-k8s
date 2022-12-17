@@ -19,14 +19,17 @@ packages:
   syslinux: ''
   linux-virt: ''
   sudo: '@community'
+  vim: ''
 
   cloud-init: '@community'
   py3-pyserial: '@community'
   py3-netifaces: '@community'
 
   # K8s requirements
+  # OpenEBS
   open-iscsi: ''
   open-iscsi-openrc: ''
+  udev: ''
 
   cni-plugin-flannel: '@community'
   cni-plugins: '@community'
@@ -43,8 +46,8 @@ packages:
 services:
   devfs: sysinit
   dmesg: sysinit
-  mdev: sysinit
   hwdrivers: sysinit
+  udev: sysinit
 
   hwclock: boot
   modules: boot
@@ -105,5 +108,8 @@ chroot_commands:
   - 'echo -e "auto lo\niface lo inet loopback\n" >/etc/network/interfaces'
   - 'echo -e "auto eth0\niface eth0 inet dhcp\niface eth0 inet6 auto\n" >>/etc/network/interfaces'
   - 'echo -e "auto eth1\niface eth1 inet dhcp\niface eth1 inet6 auto\n" >>/etc/network/interfaces'
+
+  # Force --cloud-provider=external
+  - "sed -i 's/command_args=\"/command_args=\"--cloud-provider=external /' /etc/init.d/kubelet"
 
 ...
