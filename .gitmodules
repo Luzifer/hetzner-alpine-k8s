@@ -1,0 +1,3 @@
+[submodule "alpine-on-hetzner"]
+	path = alpine-on-hetzner
+	url = https://github.com/MathiasPius/alpine-on-hetzner.git
