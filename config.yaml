@@ -18,6 +18,7 @@ packages:
   openssh: ''
   syslinux: ''
   linux-virt: ''
+  sudo: '@community'
 
   cloud-init: '@community'
   py3-pyserial: '@community'
@@ -98,5 +99,8 @@ chroot_commands:
   - 'echo -e "#!/bin/sh\nmount --make-rshared /" >/etc/local.d/sharemetrics.start'
   - 'chmod +x /etc/local.d/sharemetrics.start'
   - 'rc-update add local'
+
+  # Enable private interface
+  - 'echo -e "\n\nauto eth1\niface eth1 inet dhcp" >>/etc/network/interfaces'
 
 ...
