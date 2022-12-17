@@ -18,7 +18,10 @@ packages:
   openssh: ''
   syslinux: ''
   linux-virt: ''
+
   cloud-init: '@community'
+  py3-pyserial: '@community'
+  py3-netifaces: '@community'
 
   # K8s requirements
   open-iscsi: ''
