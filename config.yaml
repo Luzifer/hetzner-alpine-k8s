@@ -22,6 +22,7 @@ packages:
   vim: ''
 
   cloud-init: '@community'
+  e2fsprogs-extra: ''
   py3-pyserial: '@community'
   py3-netifaces: '@community'
 
