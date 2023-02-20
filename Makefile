@@ -8,7 +8,7 @@ export DOCKER_BUILDKIT:=1
 default:
 
 config.json:
-	yq -S . config.yaml >config.json
+	yq -ojson . config.yaml | jq -S . >config.json
 
 create-snapshot: docker-build config.json
 	envrun -- docker run --rm -i \
