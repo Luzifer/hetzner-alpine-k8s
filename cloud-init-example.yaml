@@ -1,0 +1,30 @@
+#cloud-config
+
+disable_root: true
+
+hostname: "REPLACEME"
+resize_rootfs: true
+
+mounts:
+  - [/dev/sdb, /data, xfs]
+
+users:
+  - name: root
+    lock_passwd: true
+
+  - name: luzifer
+    groups: admin, docker, users
+    passwd: '$6$rounds=4096$REPLACEME'
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    shell: /bin/sh
+    lock_passwd: false
+    ssh_authorized_keys:
+      - 'REPLACEME'
+
+updates:
+  network:
+    when: [ boot, hotplug ]
+
+runcmd:
+  - [ /bin/sh, -c, 'uuidgen >/etc/machine-id' ]
+
