@@ -26,6 +26,8 @@ packages:
   py3-pyserial: '@community'
   py3-netifaces: '@community'
 
+  wireguard-tools: ''
+
   # K8s requirements
   # OpenEBS
   open-iscsi: ''
