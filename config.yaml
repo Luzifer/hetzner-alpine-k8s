@@ -36,15 +36,16 @@ packages:
 
   cni-plugin-flannel: '@community'
   cni-plugins: '@community'
-  flannel: '@testing'
+  containerd: '@community'
+  containerd-openrc: '@community'
   flannel-contrib-cni: '@testing'
-  docker: '@community'
-  uuidgen: ''
+  flannel: '@testing'
   nfs-utils: ''
+  uuidgen: ''
 
-  kubelet: '@testing=1.25.0-r4'
-  kubeadm: '@testing=1.25.0-r4'
-  kubectl: '@testing=1.25.0-r4'
+  kubelet: '@testing=1.26.1-r2'
+  kubeadm: '@testing=1.26.1-r2'
+  kubectl: '@testing=1.26.1-r2'
 
 services:
   devfs: sysinit
@@ -67,7 +68,7 @@ services:
   sshd: default
 
   # K8s requirements
-  docker: default
+  containerd: default
   iscsid: default
   kubelet: default
   ntpd: default
@@ -99,6 +100,7 @@ default_kernel_opts:
 chroot_commands:
   # kernel stuff
   - 'echo "br_netfilter" >/etc/modules-load.d/k8s.conf'
+  - 'echo "net.ipv4.ip_forward=1" >>/etc/sysctl.conf'
   - 'echo "net.bridge.bridge-nf-call-iptables=1" >>/etc/sysctl.conf'
 
   # Fix prometheus errors
