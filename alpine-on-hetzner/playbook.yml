@@ -42,13 +42,13 @@
 
   - name: initialize alpine-base in directory
     shell: >-
-      ./apk -X {{ alpine_mirror }}/{{ alpine_version }}/{{ alpine_repositories[0] }}
-      -u 
-      --allow-untrusted 
-      --root /{{ chroot_directory }} 
-      --initdb 
+      ./apk -X {{ alpine_repositories[0].url }}
+      -u
+      --allow-untrusted
+      --root /{{ chroot_directory }}
+      --initdb
       add alpine-base
-  
+
   - name: prepare chroot
     shell: |
       mount --bind /dev  {{ chroot_directory }}/dev
@@ -68,9 +68,11 @@
       content: |
         auto lo
         iface lo inet loopback
-        auto eth0
-        iface eth0 inet dhcp
-        iface eth0 inet6 auto
+        {% for dif in dhcp_interfaces %}
+        auto {{ dif }}
+        iface {{ dif }} inet dhcp
+        iface {{ dif }} inet6 auto
+        {% endfor %}
       dest: "{{ chroot_directory }}/etc/network/interfaces"
 
   - name: write out hostname file
@@ -82,8 +84,8 @@
     copy:
       dest: "{{ chroot_directory }}/etc/hosts"
       content: |
-        127.0.0.1	{{ hostname }} localhost localhost.localdomain
-        ::1		    {{ hostname }} localhost localhost.localdomain
+        127.0.0.1 {{ hostname }} localhost localhost.localdomain
+        ::1       {{ hostname }} localhost localhost.localdomain
         ::1       {{ hostname }} localhost ipv6-localhost ipv6-loopback
         fe00::0   ipv6-localnet
         ff00::0   ipv6-mcastprefix
@@ -91,16 +93,18 @@
         ff02::2   ipv6-allrouters
         ff02::3   ipv6-allhosts
 
+  - name: install custom repository keys
+    copy:
+      dest: "{{ chroot_directory }}/etc/apk/keys/{{ item.name }}"
+      content: "{{ item.public_key }}"
+    loop: "{{ alpine_repository_keys }}"
+
   - name: define alpine repositories
     copy:
       dest: "{{ chroot_directory }}/etc/apk/repositories"
       content: |
         {% for repository in alpine_repositories %}
-        {% if loop.first %}
-        {{ alpine_mirror }}/{{ alpine_version }}/{{ repository }}
-        {% else %}
-        @{{ repository }}  {{ alpine_mirror }}/{{ alpine_version }}/{{ repository }}
-        {% endif %}
+        {% if repository.tag | d(false) %}@{{ repository.tag }} {% endif %}{{ repository.url }}
         {% endfor %}
 
   - name: install requisite packages
@@ -132,7 +136,7 @@
         {% for setting in sysctl | dict2items %}
         {{ setting.key }} = {{ setting.value }}
         {% endfor %}
-    
+
   - name: configure kernel modules
     copy:
       dest: "{{ chroot_directory }}/etc/modules"
