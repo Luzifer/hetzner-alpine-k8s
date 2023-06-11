@@ -13,7 +13,7 @@ alpine_repositories:
   - tag: 'testing'
     url: '{{ alpine_mirror }}/edge/testing'
   - tag: 'luzifer'
-    url: 'http://alpine-luzifer-io.s3-website-eu-west-1.amazonaws.com/repo'
+    url: 'https://alpinerepo.hub.luzifer.io/repo'
 
 alpine_repository_keys:
   - name: 'alpine@ahlers.me-64562ea3.rsa.pub'
