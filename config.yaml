@@ -64,17 +64,15 @@ packages:
 
   cni-plugin-flannel: '@community'
   cni-plugins: '@community'
-  cri-tools: '@testing'
+  cri-tools: '@community'
   containerd: '@community'
   containerd-openrc: '@community'
-  flannel-contrib-cni: '@testing'
-  flannel: '@testing'
   nfs-utils: ''
   uuidgen: ''
 
-  kubelet: '@luzifer=1.28.0-r0'
-  kubeadm: '@luzifer=1.28.0-r0'
-  kubectl: '@luzifer=1.28.0-r0'
+  kubelet: '@luzifer=1.28.1-r0'
+  kubeadm: '@luzifer=1.28.1-r0'
+  kubectl: '@luzifer=1.28.1-r0'
 
 services:
   devfs: sysinit
