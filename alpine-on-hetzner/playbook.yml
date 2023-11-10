@@ -40,6 +40,16 @@
       mkdir -p {{ chroot_directory }}/boot
       mount /dev/disk/by-partlabel/boot {{ chroot_directory }}/boot
 
+  - name: register uuid of boot disk
+    shell: |
+      blkid /dev/disk/by-partlabel/boot | grep -o '\bUUID="[^"]*"' | sed 's/"//g'
+    register: boot_uuid
+
+  - name: register uuid of root disk
+    shell: |
+      blkid /dev/disk/by-partlabel/root | grep -o '\bUUID="[^"]*"' | sed 's/"//g'
+    register: root_uuid
+
   - name: initialize alpine-base in directory
     shell: >-
       ./apk -X {{ alpine_repositories[0].url }}
@@ -126,8 +136,8 @@
     copy:
       dest: "{{ chroot_directory }}/etc/fstab"
       content: |
-        {{ root_device_path }}2  /      ext4  defaults,noatime   0 0
-        {{ root_device_path }}1  /boot  ext4  defaults           0 2
+        {{ root_uuid.stdout | trim }}  /      ext4  defaults,noatime   0 0
+        {{ boot_uuid.stdout | trim }}  /boot  ext4  defaults           0 2
 
   - name: configure sysctl
     copy:
@@ -153,7 +163,7 @@
         vesa_menu=0
         default_kernel_opts="{{ default_kernel_opts | join(" ") }}"
         modules={{ extlinux_modules | join(",") }}
-        root={{ root_device_path }}2
+        root={{ root_uuid.stdout | trim }}
         verbose=0
         hidden=1
         timeout=1
