@@ -62,6 +62,7 @@ packages:
   open-iscsi-openrc: ''
   udev: ''
 
+  cni-plugin-calico: '@luzifer=3.27.2-r0'
   cni-plugins: '@community'
   cri-tools: '@community'
   containerd: '@community'
@@ -143,9 +144,5 @@ chroot_commands:
 
   # Configure chrony
   - 'echo -e "server ptbtime1.ptb.de iburst\nserver ptbtime2.ptb.de iburst\ninitstepslew 10 ptbtime1.ptb.de\ndriftfile /var/lib/chrony/chrony.drift\nrtcsync\ncmdport 0" >/etc/chrony/chrony.conf'
-
-  # Pre-create calico CNI binary links (binaries are provided by CNI)
-  - 'ln -sf /opt/cni/bin/calico /usr/libexec/cni/calico'
-  - 'ln -sf /opt/cni/bin/calico-ipam /usr/libexec/cni/calico-ipam'
 
 ...
