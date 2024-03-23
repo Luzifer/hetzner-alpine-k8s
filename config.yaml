@@ -79,6 +79,8 @@ services:
   dmesg: sysinit
   hwdrivers: sysinit
   udev: sysinit
+  udev-trigger: sysinit
+  udev-settle: sysinit
 
   hwclock: boot
   modules: boot
@@ -94,6 +96,7 @@ services:
 
   chronyd: default
   sshd: default
+  udev-postmount: default
 
   # K8s requirements
   containerd: default
