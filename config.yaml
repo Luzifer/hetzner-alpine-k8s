@@ -118,9 +118,14 @@ extlinux_modules:
   - ext4
 
 kernel_features:
+  - ata
   - base
   - ext4
   - keymap
+  - kms
+  - nvme
+  - raid
+  - scsi
   - virtio
 
 kernel_modules:
