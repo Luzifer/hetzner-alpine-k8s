@@ -177,7 +177,7 @@
     copy:
       dest: "{{ chroot_directory }}/etc/mkinitfs/mkinitfs.conf"
       content: |
-        features="{{ kernel_features | join(" ") }}"
+        features="{{ mkinitfs_features | join(" ") }}"
 
   - name: install boot
     shell: |

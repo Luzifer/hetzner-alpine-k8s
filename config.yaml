@@ -117,7 +117,7 @@ sysctl:
 extlinux_modules:
   - ext4
 
-kernel_features:
+mkinitfs_features:
   - ata
   - base
   - ext4
