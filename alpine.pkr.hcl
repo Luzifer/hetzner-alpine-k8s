@@ -1,6 +1,20 @@
 # Please see default.json for default values for these
 variable "hostname" {}
 
+packer {
+  required_plugins {
+    ansible = {
+      version = "~> 1"
+      source = "github.com/hashicorp/ansible"
+    }
+
+    hcloud = {
+      source  = "github.com/hetznercloud/hcloud"
+      version = "~> 1"
+    }
+  }
+}
+
 locals {
   timestamp   = formatdate("YYYYMMDD-hhmmss", timestamp())
   snapshot_id = sha1(uuidv4())
@@ -26,7 +40,11 @@ build {
   }
 
   provisioner "ansible" {
+    extra_arguments = [
+      "--scp-extra-args", "'-O'", # Required for OpenSSH >=9 (https://github.com/hashicorp/packer-plugin-ansible/issues/110)
+      "--extra-vars", "@config.json",
+    ]
     playbook_file   = "playbook.yml"
-    extra_arguments = ["--extra-vars", "@config.json"]
+    user = "root"
   }
 }

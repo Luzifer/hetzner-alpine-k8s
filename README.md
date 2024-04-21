@@ -1,6 +1,8 @@
 # Luzifer / hetzner-alpine-k8s
 
-This repo contains my configuration for the [MathiasPius/alpine-on-hetzner](https://github.com/MathiasPius/alpine-on-hetzner) build tooling.
+This repo is derived from the [MathiasPius/alpine-on-hetzner](https://github.com/MathiasPius/alpine-on-hetzner) build tooling.
+
+It contains a modified version of the packer / ansible setup to create a snapshot containing a Kubernetes-ready setup.
 
 ## Usage
 
