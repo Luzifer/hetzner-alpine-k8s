@@ -62,7 +62,6 @@ packages:
   open-iscsi-openrc: ''
   udev: ''
 
-  cni-plugin-calico: '@luzifer'
   cni-plugins: '@community'
   cri-tools: '@community'
   containerd: '@community'
