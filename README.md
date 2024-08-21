@@ -7,4 +7,4 @@ It contains a modified version of the packer / ansible setup to create a snapsho
 ## Usage
 
 - Create an `.env` file containing an `HCLOUD_TOKEN=someimportanttoken`
-- Execute `make create-snapshot`
+- Execute `make build/<your YAML config, i.e. config.yaml>`

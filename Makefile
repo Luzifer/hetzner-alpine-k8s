@@ -8,10 +8,8 @@ YQ := ./yq_$(YQ_VERSION)
 
 default:
 
-config.json: $(YQ)
-	$(YQ) -ojson . config.yaml | jq -S . >config.json
-
-create-snapshot: config.json $(ENVRUN) $(PACKER)
+build/%.yaml: $(ENVRUN) $(PACKER) $(YQ)
+	$(YQ) -ojson . $*.yaml | jq -S . >config.json
 	$(PACKER) init alpine.pkr.hcl
 	$(ENVRUN) -- $(PACKER) build -var-file=config.json alpine.pkr.hcl
 
