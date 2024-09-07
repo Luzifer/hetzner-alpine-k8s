@@ -69,9 +69,9 @@ packages:
   nfs-utils: ''
   uuidgen: ''
 
-  kubelet: '@luzifer=1.30.0-r0'
-  kubeadm: '@luzifer=1.30.0-r0'
-  kubectl: '@luzifer=1.30.0-r0'
+  kubelet: '@luzifer=1.30.2-r0'
+  kubeadm: '@luzifer=1.30.2-r0'
+  kubectl: '@luzifer=1.30.2-r0'
 
 services:
   devfs: sysinit
