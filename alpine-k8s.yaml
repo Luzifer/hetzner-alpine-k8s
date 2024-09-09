@@ -41,6 +41,7 @@ dhcp_interfaces: [eth0, eth1]
 
 packages:
   # Alpine base system
+  curl: ''
   openssh: ''
   syslinux: ''
   linux-virt: ''
