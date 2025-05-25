@@ -22,7 +22,7 @@ locals {
 
 source "hcloud" "alpine" {
   location     = "fsn1"
-  server_type  = "cx11"
+  server_type  = "cpx11"
   image        = "ubuntu-20.04"
   rescue       = "linux64"
   ssh_username = "root"
